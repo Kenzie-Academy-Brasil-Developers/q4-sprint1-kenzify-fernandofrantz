@@ -1,0 +1,26 @@
+{
+  "name": "projeto-node",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon --experimental-specifier-resolution=node src/server.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "express": "^4.17.3",
+    "jsonwebtoken": "^8.5.1",
+    "uuid": "^8.3.2",
+    "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1",
+    "nodemon": "^2.0.15",
+    "supertest": "^6.2.2"
+  },
+  "repository": "git@github.com:Kenzie-Academy-Brasil-Developers/q4-sprint1-users-service-fernandofrantz.git",
+  "author": "fernando tonezer frantz <fernandofrantz12@gmail.com>"
+}
