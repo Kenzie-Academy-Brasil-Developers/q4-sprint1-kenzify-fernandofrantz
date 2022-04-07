@@ -1,5 +1,10 @@
+import {
+  use
+} from "bcrypt/promises";
 import jsonwebtoken from "jsonwebtoken";
-import { db_users } from "../config/databases";
+import {
+  db_users
+} from "../config/databases";
 
 export const create_song = async (req, res) => {
   const data = req.body;
@@ -7,26 +12,37 @@ export const create_song = async (req, res) => {
   const decoded_token = jsonwebtoken.decode(token);
   const user = db_users.find((user) => user.name === decoded_token.name);
 
-  if (!req.query == false) {
-    let query = req.query;
-    let artist = query.artist;
-    let song_obj = user.playlist;
-
-    console.log(query);
-
-    console.log(user.playlist.data);
-  }
-
-  user.playlist = {
-    ...user.playlist,
-    data,
-  };
-
-  const user_to_return = {
+  let user_to_return = {
     uuid: user.uuid,
     name: user.name,
     playlist: user.playlist,
   };
 
-  res.status(200).json(user_to_return);
+  if (Object.keys(req.query).length == 0) {
+    user.playlist.push(data)
+    res.status(200).json(user_to_return);
+  }
+
+  if (Object.keys(req.query).length == 2) {
+    let {
+      artist,
+      song
+    } = req.query;
+
+    const newest_song = {
+      artist: [{
+          title: data.title,
+          duration: data.duration,
+          releasedDate: data.releasedDate,
+          genres: [
+            data.genres
+          ]
+        }
+      ]
+    }
+
+    user.playlist.push(newest_song)
+
+    res.status(200).json(user_to_return);
+  }
 };

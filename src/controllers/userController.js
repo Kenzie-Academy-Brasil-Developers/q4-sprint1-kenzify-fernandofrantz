@@ -19,7 +19,7 @@ export const create_user = async (req, res) => {
   };
 
   const user_to_return = {
-    playlist: {},
+    playlist: user.playlist,
     name: req.body.name,
     uuid: uuidv4(),
   };
