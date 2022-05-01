@@ -1,8 +1,8 @@
-import { Router } from "express";
-import { userSchema } from "../models/userSchema";
-import { create_user, login_user } from "../controllers/userController";
-import { validateSchema } from "../middlewares/validateSchema";
+import { create_user, get_users, login_user } from "../controllers/userController";
 import { verifyUserAlreadyCreated } from "../middlewares/userAlreadyCreated";
+import { validateSchema } from "../middlewares/validateSchema";
+import { userSchema } from "../models/userSchema";
+import { Router } from "express";
 
 const route = Router();
 
@@ -13,7 +13,14 @@ export const userRoutes = (app) => {
     verifyUserAlreadyCreated,
     create_user
   );
-  route.post("/login", login_user);
+  
+  route.post(
+    "/login", 
+    validateSchema(userSchema), 
+    login_user
+  );
+
+  route.get("", get_users);
 
   app.use("/users", route);
 };

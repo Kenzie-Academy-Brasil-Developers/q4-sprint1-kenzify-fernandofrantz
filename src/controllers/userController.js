@@ -1,7 +1,7 @@
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import { v4 as uuidv4 } from "uuid";
 import { db_users } from "../config/databases";
+import { v4 as uuidv4 } from "uuid";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
 
 export const config = {
   secret: "the_greatest_secret_key",
@@ -60,3 +60,7 @@ export const login_user = async (req, res) => {
 
   res.status(200).json({ accessToken: token });
 };
+
+export const get_users = async (req, res) => {
+  res.status(200).json({ users: db_users });
+}
